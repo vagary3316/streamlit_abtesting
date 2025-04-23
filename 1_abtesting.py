@@ -3,8 +3,13 @@ from kagglehub import KaggleDatasetAdapter
 import openpyxl
 import streamlit as st
 
+## streamlit_setting
+st.set_page_config(layout="wide",
+                   page_title="AB Testing Data Analysis",
+                   page_icon=":Chart:")
+
 #Streamlit Header and Subheader
-st.header('Welcome to my project - AB Testing Data Analysis')
+st.header(' *WIP* Welcome to my project - AB Testing Data Analysis')
 st.text("""
 Kaggle - AB Testing Dataset
 (https://www.kaggle.com/datasets/cagataytuylu/ab-testing)
