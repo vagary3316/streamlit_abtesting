@@ -45,8 +45,8 @@ There is no missing value in the datasets.
 st.text("""
 Quick View of the Control Group and Test Group
 """)
-st.dataframe(con_df.head(con_df.describe()))
-st.dataframe(con_df.head(test_df.describe()))
+st.dataframe(con_df.describe().reset_index())
+st.dataframe(test_df.describe().reset_index())
 
 ####################################
 # Funnel Chart of the two datasets #
