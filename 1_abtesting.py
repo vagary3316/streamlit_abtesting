@@ -43,9 +43,16 @@ There is no missing value in the datasets.
 """)
 ## Describe the two datasets
 st.text("""
-Quick View of the Control Group and Test Group
+Descriptive Statistics: Control Group and Test Group
+1. Impressions are higher in Test Group
+2. But Clicks are higher in Control Group (better CTR in control group)
+3. Purchase and Earning are higher in Test Group (better Conversion Rate in Test Group)
 """)
+
+st.text("Control Group")
 st.dataframe(con_df.describe().reset_index())
+
+st.text("Test Group")
 st.dataframe(test_df.describe().reset_index())
 
 ####################################
@@ -68,7 +75,8 @@ funnel_chart_sum.add_trace(go.Funnel(
     y=['Impression', 'Click', 'Purchase'],
     textinfo="value+percent initial",
     texttemplate="%{value:,.2f} (%{percentInitial:.2%})",
-    marker=dict(color=["#1f77b4", "#5fa2dd", "#a6c8ea"])
+    marker=dict(color=["#1f77b4", "#5fa2dd", "#a6c8ea"]),
+    showlegend=False
 ), row=1, col=1)
 
 # Test group
@@ -77,12 +85,13 @@ funnel_chart_sum.add_trace(go.Funnel(
     y=['Impression', 'Click', 'Purchase'],
     textinfo="value+percent initial",
     texttemplate="%{value:,.2f} (%{percentInitial:.2%})",
-    marker=dict(color=["#ff7f0e", "#ffb266", "#ffd699"])
+    marker=dict(color=["#ff7f0e", "#ffb266", "#ffd699"]),
+    showlegend=False
 ), row=1, col=2)
 
 # fig settings
 funnel_chart_sum.update_layout(title_text="Control vs Test Group Funnel Comparison",
-                  title_x=0.5,
+                  title_x=0.45,
                   title_font_size=20
                   )
 st.plotly_chart(funnel_chart_sum, use_container_width=True)
