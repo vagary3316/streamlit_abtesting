@@ -127,8 +127,47 @@ nobs = [impressions_control, impressions_test]
 
 z_stat, p_val = proportions_ztest(counts, nobs)
 
-z_test_df = pd.DataFrame({
+z_test_df_ctr = pd.DataFrame({
     'Z-stat': [z_stat],
     'p-value': [p_val]
 })
-st.table(z_test_df)
+st.table(z_test_df_ctr)
+
+st.text("""
+p-value <0.05, we reject the H₀
+This indicates that the difference in CTR between the control and test groups is statistically significant.
+""")
+
+
+st.subheader(":bulb: Z Test for CVR of the two groups")
+st.text("""
+After analyzing the CTR, we will now assess whether the CVRs show a statistically significant difference.
+""")
+
+st.text("""
+Null Hypothesis (H₀): The Conversion Rate (CVR) of the control group and the test group are equal.
+Alternative Hypothesis (H₁): The CVRs of the two groups are not equal.
+""")
+
+purchases_control = con_df.Purchase.sum()
+purchases_test = test_df.Purchase.sum()
+
+
+con_cvr = purchases_control/clicks_control
+test_cvr = purchases_test/clicks_test
+
+counts = [purchases_control, purchases_test]
+nobs = [clicks_control, clicks_test]
+
+z_stat, p_val = proportions_ztest(counts, nobs)
+
+z_test_df_cvr = pd.DataFrame({
+    'Z-stat': [z_stat],
+    'p-value': [p_val]
+})
+st.table(z_test_df_cvr)
+
+st.text("""
+p-value <0.05, we reject the H₀
+This indicates that the difference in CVR between the control and test groups is statistically significant.
+""")
