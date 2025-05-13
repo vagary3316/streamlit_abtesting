@@ -43,10 +43,12 @@ There is no missing value in the datasets.
 """)
 ## Describe the two datasets
 st.text("""
-Descriptive Statistics: Control Group and Test Group
-1. Impressions are higher in Test Group
-2. But Clicks are higher in Control Group (better CTR in control group)
-3. Purchase and Earning are higher in Test Group (better Conversion Rate in Test Group)
+The two tables below are the descriptive statistics
+Comparing the mean and std of the Control Group and Test Group, we can find:
+1. Impressions are higher in Test Group (Higher mean)
+2. The mean of clicks of Control Group is higher (better CTR in control group)
+3. Purchase in test group looks a little higher for now, but need to check with further analysis
+4. Earnings are higher in Test Group (mean: 2514.89 > mean: 1908.56)
 """)
 
 st.text("Control Group")
@@ -61,6 +63,8 @@ st.dataframe(test_df.describe().reset_index())
 st.subheader(":bulb: Funnel Chart of Control and Test Group")
 st.text("""
 Comparing the two funnel charts gives us a more comprehensive perspective on how users progress through each stage—from impression to click to purchase.
+Please note that the values are the sum values of the datasets.
+From the adding-up values, the overall CTR and CVR is lower in test group.
 """)
 
 funnel_chart_sum = make_subplots(
@@ -91,7 +95,8 @@ funnel_chart_sum.add_trace(go.Funnel(
 
 # fig settings
 funnel_chart_sum.update_layout(title_text="Control vs Test Group Funnel Comparison",
-                  title_x=0.45,
+                  title_x=0.40,
                   title_font_size=20
                   )
 st.plotly_chart(funnel_chart_sum, use_container_width=True)
+
