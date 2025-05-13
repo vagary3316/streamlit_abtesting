@@ -1,6 +1,8 @@
 import kagglehub
+import pandas as pd
 from kagglehub import KaggleDatasetAdapter
 import openpyxl
+from statsmodels.stats.proportion import proportions_ztest
 import streamlit as st
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -43,6 +45,7 @@ There is no missing value in the datasets.
 """)
 ## Describe the two datasets
 st.text("""
+
 The two tables below are the descriptive statistics
 Comparing the mean and std of the Control Group and Test Group, we can find:
 1. Impressions are higher in Test Group (Higher mean)
@@ -100,3 +103,32 @@ funnel_chart_sum.update_layout(title_text="Control vs Test Group Funnel Comparis
                   )
 st.plotly_chart(funnel_chart_sum, use_container_width=True)
 
+st.subheader(":bulb: Z Test for CTR of the two groups")
+st.text("""
+As we could see from the funnel chart, the CTRs are 5.01% and 3.29% respectively.
+Now we use a Z-test to determine whether the difference between the two proportions is statistically significant.
+""")
+
+st.text("""
+Null Hypothesis (H₀): The click-through rates (CTR) of the control group and the test group are equal.
+Alternative Hypothesis (H₁): The CTRs of the two groups are not equal.
+""")
+
+clicks_control = con_df.Click.sum()
+impressions_control = con_df.Impression.sum()
+clicks_test = test_df.Click.sum()
+impressions_test = test_df.Impression.sum()
+
+con_ctr = clicks_control/impressions_control
+test_ctr = clicks_test/impressions_test
+
+counts = [clicks_control, clicks_test]
+nobs = [impressions_control, impressions_test]
+
+z_stat, p_val = proportions_ztest(counts, nobs)
+
+z_test_df = pd.DataFrame({
+    'Z-stat': [z_stat],
+    'p-value': [p_val]
+})
+st.table(z_test_df)
