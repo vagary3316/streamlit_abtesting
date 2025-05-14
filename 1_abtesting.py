@@ -203,4 +203,4 @@ combined_df = pd.concat([con_df, test_df], ignore_index=True)
 fig_violin = px.violin(combined_df, y="Earning", x="Group", box=True, points="all", color="Group")
 
 fig_violin.update_layout(title="Earning Distribution: Control vs Test", violingap=0.3)
-fig_violin.show()
+st.plotly_chart(fig_violin, use_container_width=True)
