@@ -160,7 +160,7 @@ test_df_cvr = pd.DataFrame({
     'CVR (Control Group)': [con_cvr],
     'CVR (Test Group)': [test_cvr]
 })
-st.table(test_df_cvr)
+st.table(test_df_cvr[['CVR (Control Group)','CVR (Test Group)']])
 
 counts = [purchases_control, purchases_test]
 nobs = [clicks_control, clicks_test]
