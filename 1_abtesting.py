@@ -6,6 +6,7 @@ from statsmodels.stats.proportion import proportions_ztest
 import streamlit as st
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+import plotly.express as px
 
 ## streamlit_setting
 st.set_page_config(layout="wide",
@@ -98,11 +99,14 @@ funnel_chart_sum.add_trace(go.Funnel(
 
 # fig settings
 funnel_chart_sum.update_layout(title_text="Control vs Test Group Funnel Comparison",
-                  title_x=0.40,
-                  title_font_size=20
-                  )
+                               title_x=0.40,
+                               title_font_size=20
+                               )
 st.plotly_chart(funnel_chart_sum, use_container_width=True)
 
+####################################
+#         Z Test for CTR           #
+####################################
 st.subheader(":bulb: Z Test for CTR of the two groups")
 st.text("""
 As we could see from the funnel chart, the CTRs are 5.01% and 3.29% respectively.
@@ -119,8 +123,8 @@ impressions_control = con_df.Impression.sum()
 clicks_test = test_df.Click.sum()
 impressions_test = test_df.Impression.sum()
 
-con_ctr = clicks_control/impressions_control
-test_ctr = clicks_test/impressions_test
+con_ctr = clicks_control / impressions_control
+test_ctr = clicks_test / impressions_test
 
 counts = [clicks_control, clicks_test]
 nobs = [impressions_control, impressions_test]
@@ -137,8 +141,9 @@ st.text("""
 p-value <0.05, we reject the H₀
 This indicates that the difference in CTR between the control and test groups is statistically significant.
 """)
-
-
+####################################
+#         Z Test for CVR           #
+####################################
 st.subheader(":bulb: Z Test for CVR of the two groups")
 st.text("""
 After analyzing the CTR, we will now assess whether the CVRs show a statistically significant difference.
@@ -152,15 +157,14 @@ Alternative Hypothesis (H₁): The CVRs of the two groups are not equal.
 purchases_control = con_df.Purchase.sum()
 purchases_test = test_df.Purchase.sum()
 
-
-con_cvr = purchases_control/clicks_control
-test_cvr = purchases_test/clicks_test
+con_cvr = purchases_control / clicks_control
+test_cvr = purchases_test / clicks_test
 
 test_df_cvr = pd.DataFrame({
     'CVR (Control Group)': [con_cvr],
     'CVR (Test Group)': [test_cvr]
 })
-st.table(test_df_cvr[['CVR (Control Group)','CVR (Test Group)']])
+st.table(test_df_cvr[['CVR (Control Group)', 'CVR (Test Group)']])
 
 counts = [purchases_control, purchases_test]
 nobs = [clicks_control, clicks_test]
@@ -177,3 +181,26 @@ st.text("""
 p-value <0.05, we reject the H₀
 This indicates that the difference in CVR between the control and test groups is statistically significant.
 """)
+
+st.text("""
+:bulb: The CTR is higher in Control Group.
+:bulb: While the CVR is higher in Test Group.
+""")
+
+####################################
+#     Violin Chart for Earnings    #
+####################################
+
+st.subheader(":bulb: Violin Chart for Earnings")
+# Add a 'Group' column to distinguish control vs test
+con_df['Group'] = 'Control'
+test_df['Group'] = 'Test'
+
+# Combine both DataFrames
+combined_df = pd.concat([con_df, test_df], ignore_index=True)
+
+# Create side-by-side violin plots
+fig_violin = px.violin(combined_df, y="Earning", x="Group", box=True, points="all", color="Group")
+
+fig_violin.update_layout(title="Earning Distribution: Control vs Test", violingap=0.3)
+fig_violin.show()
