@@ -158,7 +158,7 @@ test_cvr = purchases_test/clicks_test
 
 test_df_cvr = pd.DataFrame({
     'CVR (Control Group)': [con_cvr],
-    'CVR (Test Group)': [con_cvr]
+    'CVR (Test Group)': [test_cvr]
 })
 st.table(test_df_cvr)
 
