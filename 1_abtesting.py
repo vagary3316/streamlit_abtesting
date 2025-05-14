@@ -156,6 +156,12 @@ purchases_test = test_df.Purchase.sum()
 con_cvr = purchases_control/clicks_control
 test_cvr = purchases_test/clicks_test
 
+test_df_cvr = pd.DataFrame({
+    'CVR (Control Group)': [con_cvr],
+    'CVR (Test Group)': [con_cvr]
+})
+st.table(test_df_cvr)
+
 counts = [purchases_control, purchases_test]
 nobs = [clicks_control, clicks_test]
 
