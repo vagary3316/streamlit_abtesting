@@ -192,6 +192,10 @@ st.text("""
 ####################################
 
 st.subheader(":bulb: Violin Chart for Earnings")
+st.text("""
+The violin chart provides a clear view of the distribution for both groups.
+And apparently that the earnings are higher in the Test Group.
+""")
 # Add a 'Group' column to distinguish control vs test
 con_df['Group'] = 'Control'
 test_df['Group'] = 'Test'
@@ -201,6 +205,5 @@ combined_df = pd.concat([con_df, test_df], ignore_index=True)
 
 # Create side-by-side violin plots
 fig_violin = px.violin(combined_df, y="Earning", x="Group", box=True, points="all", color="Group")
-
 fig_violin.update_layout(title="Earning Distribution: Control vs Test", violingap=0.3)
 st.plotly_chart(fig_violin, use_container_width=True)
