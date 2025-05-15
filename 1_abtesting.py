@@ -1,12 +1,12 @@
 import kagglehub
 import pandas as pd
 from kagglehub import KaggleDatasetAdapter
-import openpyxl
 from statsmodels.stats.proportion import proportions_ztest
 import streamlit as st
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import plotly.express as px
+from scipy.stats import ttest_ind
 
 ## streamlit_setting
 st.set_page_config(layout="wide",
@@ -206,3 +206,26 @@ combined_df = pd.concat([con_df, test_df], ignore_index=True)
 fig_violin = px.violin(combined_df, y="Earning", x="Group", box=True, points="all", color="Group")
 fig_violin.update_layout(title="Earning Distribution: Control vs Test", violingap=0.3)
 st.plotly_chart(fig_violin, use_container_width=True)
+
+####################################
+#       T test for Earnings        #
+####################################
+st.subheader(":bulb: T test for Earnings")
+st.text("""
+Conduct a T test to compare earnings difference between the control and test groups.
+Null Hypothesis (H₀):The mean earnings of the control and test groups are equal.
+Alternative Hypothesis (H₁): The mean earnings of the control and test groups are different.
+""")
+
+# Run Welch's t-test (does not assume equal variances)
+t_stat, p_val = ttest_ind(con_df['Earning'], test_df['Earning'], equal_var=False)
+t_test_df_ear = pd.DataFrame({
+    't-stat': [t_stat],
+    'p-value': [p_val]
+})
+st.table(t_test_df_ear)
+
+st.text("""
+p-value <0.05, we reject the H₀
+With the data, it's sufficient to say that the two groups' mean earnings are different.
+""")

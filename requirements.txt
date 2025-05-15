@@ -4,4 +4,4 @@ numpy
 streamlit
 statsmodels
 kagglehub
-openpyxl
+scipy
