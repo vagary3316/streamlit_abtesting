@@ -14,7 +14,7 @@ st.set_page_config(layout="wide",
                    page_icon=":Chart:")
 
 #Streamlit Header and Subheader
-st.header(' *WIP* Welcome to my project - AB Testing Data Analysis')
+st.header('Welcome to my project - AB Testing Data Analysis')
 st.text("""
 Kaggle - AB Testing Dataset
 (https://www.kaggle.com/datasets/cagataytuylu/ab-testing)
@@ -228,4 +228,13 @@ st.table(t_test_df_ear)
 st.text("""
 p-value <0.05, we reject the H₀
 With the data, it's sufficient to say that the two groups' mean earnings are different.
+""")
+
+####################################
+#            Conclusion            #
+####################################
+st.subheader(":fire: Conclusion")
+st.text("""
+Though we can find better CTR in Control Group, but in terms of conversions, it works better in Test Group.
+The CVR and Earnings are better in Test Group.
 """)
