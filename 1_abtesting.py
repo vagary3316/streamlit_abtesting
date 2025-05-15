@@ -182,10 +182,8 @@ p-value <0.05, we reject the H₀
 This indicates that the difference in CVR between the control and test groups is statistically significant.
 """)
 
-st.text("""
-:bulb: The CTR is higher in Control Group.
-:bulb: While the CVR is higher in Test Group.
-""")
+st.text(":bulb: The CTR is higher in Control Group.")
+st.text(":bulb: While the CVR is higher in Test Group.")
 
 ####################################
 #     Violin Chart for Earnings    #
@@ -195,6 +193,7 @@ st.subheader(":bulb: Violin Chart for Earnings")
 st.text("""
 The violin chart provides a clear view of the distribution for both groups.
 And apparently that the earnings are higher in the Test Group.
+The highest earning in Control Group is 2497; the median of Test Group is 2544.
 """)
 # Add a 'Group' column to distinguish control vs test
 con_df['Group'] = 'Control'
