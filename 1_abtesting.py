@@ -182,8 +182,8 @@ p-value <0.05, we reject the H₀
 This indicates that the difference in CVR between the control and test groups is statistically significant.
 """)
 
-st.text(":bulb: The CTR is higher in Control Group.")
-st.text(":bulb: While the CVR is higher in Test Group.")
+st.text(" :bulb: The CTR is higher in Control Group.")
+st.text(" :bulb: While the CVR is higher in Test Group.")
 
 ####################################
 #     Violin Chart for Earnings    #
